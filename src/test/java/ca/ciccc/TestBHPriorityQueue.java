@@ -5,60 +5,64 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestALPriorityQueue {
+public class TestBHPriorityQueue {
 
-  private VCPriorityQueue alp;
+  private VCPriorityQueue bhp;
 
   @Before
   public void before() {
     System.out.println("SET UP");
-    alp = new ALPriorityQueue();
-    alp.enqueue(15, "pikachu");
-    alp.enqueue(29, "rukario");
-    alp.enqueue(20, "hitokage");
-    alp.enqueue(30, "zenigame");
-    alp.enqueue(44, "fushigibana");
-    alp.enqueue(46, "myu");
-    alp.enqueue(33, "genger");
-    alp.enqueue(30, "myu");
-    alp.enqueue(47, "myu");
-    alp.enqueue(45, "myu");
-    alp.enqueue(51, "myu");
+    bhp = new BHPriorityQueue();
+    bhp.enqueue(15, "pikachu");
+    bhp.enqueue(29, "rukario");
+    bhp.enqueue(20, "hitokage");
+    bhp.enqueue(30, "zenigame");
+    bhp.enqueue(44, "fushigibana");
+    bhp.enqueue(46, "myu");
+    bhp.enqueue(33, "genger");
+    bhp.enqueue(30, "myu");
+    bhp.enqueue(47, "myu");
+    bhp.enqueue(45, "myu");
+    bhp.enqueue(51, "myu");
   }
 
   @Test
   public void size() {
     System.out.println("TEST: size");
-    assertEquals(11, alp.size());
+    assertEquals(11, bhp.size());
+
+    // boundary test: upper bound
+    bhp.enqueue(37, "myu");
+    assertEquals(12, bhp.size());
 
     // boundary test: lower bound
-    while (!alp.isEmpty()) {
-      alp.dequeueMin();
+    while (!bhp.isEmpty()) {
+      bhp.dequeueMin();
     }
-    assertEquals(0, alp.size());
+    assertEquals(0, bhp.size());
   }
 
   @Test
   public void isEmpty() {
     System.out.println("TEST: isEmpty");
-    while (!alp.isEmpty()) {
-      alp.dequeueMin();
+    while (!bhp.isEmpty()) {
+      bhp.dequeueMin();
     }
-    assertTrue(alp.isEmpty());
+    assertTrue(bhp.isEmpty());
   }
 
   @Test
   public void enqueue() {
     System.out.println("TEST: enqueue");
     Entry e = new Entry(25, "darumakka");
-    assertEquals(alp.enqueue(25, "darumakka"), e);
+    assertEquals(bhp.enqueue(25, "darumakka"), e);
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
     Entry e = new Entry(15, "pikachu");
-    assertEquals(alp.peek(), e);
+    assertEquals(bhp.peek(), e);
   }
 
   @Test
@@ -66,25 +70,25 @@ public class TestALPriorityQueue {
     System.out.println("TEST: dequeueMin");
     int[] priorities = new int[11];
     for (int i = 0; i < priorities.length; i++) {
-      priorities[i] = (int) alp.dequeueMin().getKey();
+      priorities[i] = (int) bhp.dequeueMin().getKey();
     }
     assertArrayEquals(priorities, new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51});
 
     // boundary test: lower bound
-    assertNull(alp.dequeueMin());
+    assertNull(bhp.dequeueMin());
   }
 
   @Test
   public void merge() {
     System.out.println("TEST: merge");
-    VCPriorityQueue other = new ALPriorityQueue();
+    VCPriorityQueue other = new BHPriorityQueue();
     other.enqueue(8, "myu");
     other.enqueue(11, "myu");
     other.enqueue(17, "myu");
     other.enqueue(35, "myu");
     other.enqueue(50, "myu");
 
-    VCPriorityQueue merge = alp.merge(other);
+    VCPriorityQueue merge = bhp.merge(other);
     Entry[] result = new Entry[merge.size()];
     for (int i = 0; i < result.length; i++) {
       result[i] = merge.dequeueMin();

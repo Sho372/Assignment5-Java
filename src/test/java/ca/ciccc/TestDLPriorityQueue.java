@@ -5,60 +5,60 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestALPriorityQueue {
+public class TestDLPriorityQueue {
 
-  private VCPriorityQueue alp;
+  private VCPriorityQueue dlp;
 
   @Before
   public void before() {
     System.out.println("SET UP");
-    alp = new ALPriorityQueue();
-    alp.enqueue(15, "pikachu");
-    alp.enqueue(29, "rukario");
-    alp.enqueue(20, "hitokage");
-    alp.enqueue(30, "zenigame");
-    alp.enqueue(44, "fushigibana");
-    alp.enqueue(46, "myu");
-    alp.enqueue(33, "genger");
-    alp.enqueue(30, "myu");
-    alp.enqueue(47, "myu");
-    alp.enqueue(45, "myu");
-    alp.enqueue(51, "myu");
+    dlp = new DLPriorityQueue();
+    dlp.enqueue(15, "pikachu");
+    dlp.enqueue(29, "rukario");
+    dlp.enqueue(20, "hitokage");
+    dlp.enqueue(30, "zenigame");
+    dlp.enqueue(44, "fushigibana");
+    dlp.enqueue(46, "myu");
+    dlp.enqueue(33, "genger");
+    dlp.enqueue(30, "myu");
+    dlp.enqueue(47, "myu");
+    dlp.enqueue(45, "myu");
+    dlp.enqueue(51, "myu");
   }
 
   @Test
   public void size() {
     System.out.println("TEST: size");
-    assertEquals(11, alp.size());
+    assertEquals(11, dlp.size());
 
     // boundary test: lower bound
-    while (!alp.isEmpty()) {
-      alp.dequeueMin();
+    while (!dlp.isEmpty()) {
+      dlp.dequeueMin();
     }
-    assertEquals(0, alp.size());
+    assertEquals(0, dlp.size());
   }
 
   @Test
   public void isEmpty() {
     System.out.println("TEST: isEmpty");
-    while (!alp.isEmpty()) {
-      alp.dequeueMin();
+    while (!dlp.isEmpty()) {
+      dlp.dequeueMin();
     }
-    assertTrue(alp.isEmpty());
+    assertTrue(dlp.isEmpty());
   }
 
   @Test
   public void enqueue() {
     System.out.println("TEST: enqueue");
     Entry e = new Entry(25, "darumakka");
-    assertEquals(alp.enqueue(25, "darumakka"), e);
+    assertEquals(dlp.enqueue(25, "darumakka"), e);
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
     Entry e = new Entry(15, "pikachu");
-    assertEquals(alp.peek(), e);
+    assertEquals(dlp.peek(), e);
   }
 
   @Test
@@ -66,25 +66,25 @@ public class TestALPriorityQueue {
     System.out.println("TEST: dequeueMin");
     int[] priorities = new int[11];
     for (int i = 0; i < priorities.length; i++) {
-      priorities[i] = (int) alp.dequeueMin().getKey();
+      priorities[i] = (int) dlp.dequeueMin().getKey();
     }
     assertArrayEquals(priorities, new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51});
 
     // boundary test: lower bound
-    assertNull(alp.dequeueMin());
+    assertNull(dlp.dequeueMin());
   }
 
   @Test
   public void merge() {
     System.out.println("TEST: merge");
-    VCPriorityQueue other = new ALPriorityQueue();
+    VCPriorityQueue other = new DLPriorityQueue();
     other.enqueue(8, "myu");
     other.enqueue(11, "myu");
     other.enqueue(17, "myu");
     other.enqueue(35, "myu");
     other.enqueue(50, "myu");
 
-    VCPriorityQueue merge = alp.merge(other);
+    VCPriorityQueue merge = dlp.merge(other);
     Entry[] result = new Entry[merge.size()];
     for (int i = 0; i < result.length; i++) {
       result[i] = merge.dequeueMin();
