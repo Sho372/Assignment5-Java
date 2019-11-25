@@ -21,6 +21,7 @@ public class ALPriorityQueue implements VCPriorityQueue {
   }
 
   @Override
+  // O(1)
   public Entry enqueue(Comparable key, Object value) throws IllegalArgumentException {
 
     // null not allowed
@@ -28,47 +29,56 @@ public class ALPriorityQueue implements VCPriorityQueue {
 
     Entry e = new Entry(key, value);
 
-    // if it's empty
-    if (isEmpty()) {
-      innerArrayList.add(e);
-      return e;
-    }
-
-    for (int i = 0; i < innerArrayList.size(); ++i) {
-      if (innerArrayList.get(i).getKey().compareTo(key) > 0) {
-        innerArrayList.add(i, e);
-        return e;
-      }
-    }
     innerArrayList.add(e);
     return e;
   }
 
   @Override
+  // O(n)
   public Entry peek() {
-    if (!isEmpty()) return innerArrayList.get(0);
-    return null;
+
+    if (innerArrayList.isEmpty()) {
+      return null;
+    }
+
+    if (innerArrayList.size() == 1) {
+      return innerArrayList.get(0);
+    }
+
+    Entry minE = innerArrayList.get(0);
+    if (!isEmpty()) {
+      for (int i = 1; i < size(); i++) {
+        if (innerArrayList.get(i).getKey().compareTo(minE.getKey()) < 0) {
+          minE = innerArrayList.get(i);
+        }
+      }
+    }
+    return minE;
   }
 
   @Override
+  // O(n)
   public Entry dequeueMin() {
-    if (!isEmpty()) return innerArrayList.remove(0);
-    return null;
+    Entry e = peek();
+    innerArrayList.remove(e);
+    return e;
   }
 
   @Override
   public VCPriorityQueue merge(VCPriorityQueue other) {
 
-    VCPriorityQueue alp = new ALPriorityQueue();
+    VCPriorityQueue alq = new ALPriorityQueue();
 
     for (int i = 0; i < size(); ++i) {
-      alp.enqueue(innerArrayList.get(i).getKey(), innerArrayList.get(i).getValue());
+      alq.enqueue(innerArrayList.get(i).getKey(), innerArrayList.get(i).getValue());
     }
 
-    for (int i = 0; !other.isEmpty(); i++) {
+    if (other.isEmpty()) return alq;
+
+    while (!other.isEmpty()) {
       Entry e = other.dequeueMin();
-      alp.enqueue(e.getKey(), e.getValue());
+      alq.enqueue(e.getKey(), e.getValue());
     }
-    return alp;
+    return alq;
   }
 }

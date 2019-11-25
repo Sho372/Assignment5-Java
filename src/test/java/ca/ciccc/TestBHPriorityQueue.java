@@ -55,14 +55,14 @@ public class TestBHPriorityQueue {
   public void enqueue() {
     System.out.println("TEST: enqueue");
     Entry e = new Entry(25, "darumakka");
-    assertEquals(bhp.enqueue(25, "darumakka"), e);
+    assertEquals(e, bhp.enqueue(25, "darumakka"));
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
     Entry e = new Entry(15, "pikachu");
-    assertEquals(bhp.peek(), e);
+    assertEquals(e, bhp.peek());
   }
 
   @Test
@@ -72,7 +72,7 @@ public class TestBHPriorityQueue {
     for (int i = 0; i < priorities.length; i++) {
       priorities[i] = (int) bhp.dequeueMin().getKey();
     }
-    assertArrayEquals(priorities, new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51});
+    assertArrayEquals(new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51}, priorities);
 
     // boundary test: lower bound
     assertNull(bhp.dequeueMin());
@@ -94,7 +94,6 @@ public class TestBHPriorityQueue {
       result[i] = merge.dequeueMin();
     }
     assertArrayEquals(
-        result,
         new Entry[] {
           new Entry(8, "myu"),
           new Entry(11, "myu"),
@@ -112,6 +111,7 @@ public class TestBHPriorityQueue {
           new Entry(47, "myu"),
           new Entry(50, "myu"),
           new Entry(51, "myu")
-        });
+        },
+        result);
   }
 }

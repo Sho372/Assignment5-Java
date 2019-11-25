@@ -51,14 +51,14 @@ public class TestDLPriorityQueue {
   public void enqueue() {
     System.out.println("TEST: enqueue");
     Entry e = new Entry(25, "darumakka");
-    assertEquals(dlp.enqueue(25, "darumakka"), e);
+    assertEquals(e, dlp.enqueue(25, "darumakka"));
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
     Entry e = new Entry(15, "pikachu");
-    assertEquals(dlp.peek(), e);
+    assertEquals(e, dlp.peek());
   }
 
   @Test
@@ -68,7 +68,7 @@ public class TestDLPriorityQueue {
     for (int i = 0; i < priorities.length; i++) {
       priorities[i] = (int) dlp.dequeueMin().getKey();
     }
-    assertArrayEquals(priorities, new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51});
+    assertArrayEquals(new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51}, priorities);
 
     // boundary test: lower bound
     assertNull(dlp.dequeueMin());
@@ -90,7 +90,6 @@ public class TestDLPriorityQueue {
       result[i] = merge.dequeueMin();
     }
     assertArrayEquals(
-        result,
         new Entry[] {
           new Entry(8, "myu"),
           new Entry(11, "myu"),
@@ -108,6 +107,7 @@ public class TestDLPriorityQueue {
           new Entry(47, "myu"),
           new Entry(50, "myu"),
           new Entry(51, "myu")
-        });
+        },
+        result);
   }
 }

@@ -21,6 +21,7 @@ public class DLPriorityQueue implements VCPriorityQueue {
   }
 
   @Override
+  // O(n)
   public Entry enqueue(Comparable key, Object value) throws IllegalArgumentException {
 
     // null not allowed
@@ -45,12 +46,14 @@ public class DLPriorityQueue implements VCPriorityQueue {
   }
 
   @Override
+  // O(1)
   public Entry peek() {
     if (!isEmpty()) return innerLinkedList.peek();
     return null;
   }
 
   @Override
+  // O(1)
   public Entry dequeueMin() {
     if (!isEmpty()) return innerLinkedList.poll();
     return null;
