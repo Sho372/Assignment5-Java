@@ -13,17 +13,17 @@ public class TestDLPriorityQueue {
   public void before() {
     System.out.println("SET UP");
     dlp = new DLPriorityQueue();
-    dlp.enqueue(15, "pikachu");
-    dlp.enqueue(29, "rukario");
-    dlp.enqueue(20, "hitokage");
-    dlp.enqueue(30, "zenigame");
-    dlp.enqueue(44, "fushigibana");
-    dlp.enqueue(46, "myu");
-    dlp.enqueue(33, "genger");
-    dlp.enqueue(30, "myu");
-    dlp.enqueue(47, "myu");
-    dlp.enqueue(45, "myu");
-    dlp.enqueue(51, "myu");
+    dlp.enqueue(1, "test1");
+    dlp.enqueue(3, "test3");
+    dlp.enqueue(5, "test5");
+    dlp.enqueue(7, "test7");
+    dlp.enqueue(9, "test9");
+    dlp.enqueue(11, "test11");
+    dlp.enqueue(13, "test13");
+    dlp.enqueue(15, "test15");
+    dlp.enqueue(17, "test17");
+    dlp.enqueue(19, "test19");
+    dlp.enqueue(21, "test21");
   }
 
   @Test
@@ -50,14 +50,14 @@ public class TestDLPriorityQueue {
   @Test
   public void enqueue() {
     System.out.println("TEST: enqueue");
-    Entry e = new Entry(25, "darumakka");
-    assertEquals(e, dlp.enqueue(25, "darumakka"));
+    Entry e = new Entry(23, "test23");
+    assertEquals(e, dlp.enqueue(23, "test23"));
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
-    Entry e = new Entry(15, "pikachu");
+    Entry e = new Entry(1, "test1");
     assertEquals(e, dlp.peek());
   }
 
@@ -68,7 +68,7 @@ public class TestDLPriorityQueue {
     for (int i = 0; i < priorities.length; i++) {
       priorities[i] = (int) dlp.dequeueMin().getKey();
     }
-    assertArrayEquals(new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51}, priorities);
+    assertArrayEquals(new int[] {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21}, priorities);
 
     // boundary test: lower bound
     assertNull(dlp.dequeueMin());
@@ -78,11 +78,11 @@ public class TestDLPriorityQueue {
   public void merge() {
     System.out.println("TEST: merge");
     VCPriorityQueue other = new DLPriorityQueue();
-    other.enqueue(8, "myu");
-    other.enqueue(11, "myu");
-    other.enqueue(17, "myu");
-    other.enqueue(35, "myu");
-    other.enqueue(50, "myu");
+    other.enqueue(2, "test2");
+    other.enqueue(4, "test4");
+    other.enqueue(6, "test6");
+    other.enqueue(8, "test8");
+    other.enqueue(10, "test10");
 
     VCPriorityQueue merge = dlp.merge(other);
     Entry[] result = new Entry[merge.size()];
@@ -91,22 +91,22 @@ public class TestDLPriorityQueue {
     }
     assertArrayEquals(
         new Entry[] {
-          new Entry(8, "myu"),
-          new Entry(11, "myu"),
-          new Entry(15, "pikachu"),
-          new Entry(17, "myu"),
-          new Entry(20, "hitokage"),
-          new Entry(29, "rukario"),
-          new Entry(30, "zenigame"),
-          new Entry(30, "myu"),
-          new Entry(33, "genger"),
-          new Entry(35, "myu"),
-          new Entry(44, "fushigibana"),
-          new Entry(45, "myu"),
-          new Entry(46, "myu"),
-          new Entry(47, "myu"),
-          new Entry(50, "myu"),
-          new Entry(51, "myu")
+          new Entry(1, "test1"),
+          new Entry(2, "test2"),
+          new Entry(3, "test3"),
+          new Entry(4, "test4"),
+          new Entry(5, "test5"),
+          new Entry(6, "test6"),
+          new Entry(7, "test7"),
+          new Entry(8, "test8"),
+          new Entry(9, "test9"),
+          new Entry(10, "test10"),
+          new Entry(11, "test11"),
+          new Entry(13, "test13"),
+          new Entry(15, "test15"),
+          new Entry(17, "test17"),
+          new Entry(19, "test19"),
+          new Entry(21, "test21")
         },
         result);
   }

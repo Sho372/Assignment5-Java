@@ -13,17 +13,17 @@ public class TestBHPriorityQueue {
   public void before() {
     System.out.println("SET UP");
     bhp = new BHPriorityQueue();
-    bhp.enqueue(15, "pikachu");
-    bhp.enqueue(29, "rukario");
-    bhp.enqueue(20, "hitokage");
-    bhp.enqueue(30, "zenigame");
-    bhp.enqueue(44, "fushigibana");
-    bhp.enqueue(46, "myu");
-    bhp.enqueue(33, "genger");
-    bhp.enqueue(30, "myu");
-    bhp.enqueue(47, "myu");
-    bhp.enqueue(45, "myu");
-    bhp.enqueue(51, "myu");
+    bhp.enqueue(1, "test1");
+    bhp.enqueue(3, "test3");
+    bhp.enqueue(5, "test5");
+    bhp.enqueue(7, "test7");
+    bhp.enqueue(9, "test9");
+    bhp.enqueue(11, "test11");
+    bhp.enqueue(13, "test13");
+    bhp.enqueue(15, "test15");
+    bhp.enqueue(17, "test17");
+    bhp.enqueue(19, "test19");
+    bhp.enqueue(21, "test21");
   }
 
   @Test
@@ -32,7 +32,7 @@ public class TestBHPriorityQueue {
     assertEquals(11, bhp.size());
 
     // boundary test: upper bound
-    bhp.enqueue(37, "myu");
+    bhp.enqueue(23, "test23");
     assertEquals(12, bhp.size());
 
     // boundary test: lower bound
@@ -54,14 +54,14 @@ public class TestBHPriorityQueue {
   @Test
   public void enqueue() {
     System.out.println("TEST: enqueue");
-    Entry e = new Entry(25, "darumakka");
-    assertEquals(e, bhp.enqueue(25, "darumakka"));
+    Entry e = new Entry(23, "test23");
+    assertEquals(e, bhp.enqueue(23, "test23"));
   }
 
   @Test
   public void peek() {
     System.out.println("TEST: peek");
-    Entry e = new Entry(15, "pikachu");
+    Entry e = new Entry(1, "test1");
     assertEquals(e, bhp.peek());
   }
 
@@ -72,7 +72,7 @@ public class TestBHPriorityQueue {
     for (int i = 0; i < priorities.length; i++) {
       priorities[i] = (int) bhp.dequeueMin().getKey();
     }
-    assertArrayEquals(new int[] {15, 20, 29, 30, 30, 33, 44, 45, 46, 47, 51}, priorities);
+    assertArrayEquals(new int[] {1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21}, priorities);
 
     // boundary test: lower bound
     assertNull(bhp.dequeueMin());
@@ -82,11 +82,11 @@ public class TestBHPriorityQueue {
   public void merge() {
     System.out.println("TEST: merge");
     VCPriorityQueue other = new BHPriorityQueue();
-    other.enqueue(8, "myu");
-    other.enqueue(11, "myu");
-    other.enqueue(17, "myu");
-    other.enqueue(35, "myu");
-    other.enqueue(50, "myu");
+    other.enqueue(2, "test2");
+    other.enqueue(4, "test4");
+    other.enqueue(6, "test6");
+    other.enqueue(8, "test8");
+    other.enqueue(10, "test10");
 
     VCPriorityQueue merge = bhp.merge(other);
     Entry[] result = new Entry[merge.size()];
@@ -95,22 +95,22 @@ public class TestBHPriorityQueue {
     }
     assertArrayEquals(
         new Entry[] {
-          new Entry(8, "myu"),
-          new Entry(11, "myu"),
-          new Entry(15, "pikachu"),
-          new Entry(17, "myu"),
-          new Entry(20, "hitokage"),
-          new Entry(29, "rukario"),
-          new Entry(30, "zenigame"),
-          new Entry(30, "myu"),
-          new Entry(33, "genger"),
-          new Entry(35, "myu"),
-          new Entry(44, "fushigibana"),
-          new Entry(45, "myu"),
-          new Entry(46, "myu"),
-          new Entry(47, "myu"),
-          new Entry(50, "myu"),
-          new Entry(51, "myu")
+          new Entry(1, "test1"),
+          new Entry(2, "test2"),
+          new Entry(3, "test3"),
+          new Entry(4, "test4"),
+          new Entry(5, "test5"),
+          new Entry(6, "test6"),
+          new Entry(7, "test7"),
+          new Entry(8, "test8"),
+          new Entry(9, "test9"),
+          new Entry(10, "test10"),
+          new Entry(11, "test11"),
+          new Entry(13, "test13"),
+          new Entry(15, "test15"),
+          new Entry(17, "test17"),
+          new Entry(19, "test19"),
+          new Entry(21, "test21")
         },
         result);
   }
