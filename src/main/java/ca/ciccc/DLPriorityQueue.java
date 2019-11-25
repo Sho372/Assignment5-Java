@@ -29,7 +29,6 @@ public class DLPriorityQueue implements VCPriorityQueue {
 
     Entry e = new Entry(key, value);
 
-    // if it's empty
     if (isEmpty()) {
       innerLinkedList.add(e);
       return e;
@@ -68,7 +67,9 @@ public class DLPriorityQueue implements VCPriorityQueue {
       dlp.enqueue(innerLinkedList.get(i).getKey(), innerLinkedList.get(i).getValue());
     }
 
-    for (int i = 0; !other.isEmpty(); i++) {
+    if (other.isEmpty()) return dlp;
+
+    while (!other.isEmpty()) {
       Entry e = other.dequeueMin();
       dlp.enqueue(e.getKey(), e.getValue());
     }
